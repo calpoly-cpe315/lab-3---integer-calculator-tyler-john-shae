@@ -7,8 +7,19 @@
     .global main
 main:
     // driver function main lives here, modify this for your other functions
+	mov x0, #12
+	mov x1, #-4
 
-
+	mov x20, #123
+	mov x21, #456
+	bl intmul
+	mov x1, x0
+	mov x2, x20
+	mov x3, x21
+	ldr x0, =printChar 
+	bl printf
+	mov x0, #0
+	ret
 
 
     // You'll need to scan characters for the operation and to determine
@@ -27,3 +38,6 @@ yes:
     .byte   'y'
 scanchar:
     .asciz  " %c"
+
+printChar:
+.asciz "Num: %d, %d, %d\n"
