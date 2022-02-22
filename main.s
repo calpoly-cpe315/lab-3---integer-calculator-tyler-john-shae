@@ -33,28 +33,33 @@ loop:
 	ldr	w0, [x0]
 	ldr	w1, [x1]
 	cmp	w0, w1
-	b	do_mul
+	beq	do_mul
+
 	ldr	x0, =b_add
 	ldr	w0, [x0]
 	cmp	w0, w1
-	b	do_add
+	beq	do_add
+
 	ldr	x0, =b_sub
 	ldr	w0, [x0]
 	cmp	w0, w1
-	b	do_sub
+	beq	do_sub
+
 	b	do_invalid
 do_mul:
-	ldr	x0, =debug
-	bl	printf
 	ldr	x0, =num1
 	ldr	x0, [x0, #0]
 	ldr	x1, =num2
 	ldr	x1, [x1, #0]
-	add	x0, x0, #-48
-	add	x1, x1, #-48
+	
+	//add	x0, x0, #-48
+	//add	x1, x1, #-48
+	//mov	x2, x0
+	//ldr	x0, =printChar
+	//bl	printf
+	//mov	x0, #5
+	//mov	x1, #5
 	bl	intmul
-	ldr	x0, =debug
-	bl	printf
 	b	do_result
 do_add:
 	ldr	x0, =num1
@@ -95,19 +100,19 @@ do_again:
 	ldrb	w1, [x1]
 	ldrb	w0, [sp]
 	cmp	w0, w1
-	b	loop
+	beq	loop
 	ret
 
 .data
-b_mul: .byte '*'
-b_add: .byte '+'
-b_sub: .byte '-'
+b_mul: .dword '*'
+b_add: .dword '+'
+b_sub: .dword '-'
 yes: .byte 'y'
 formatInt: .asciz "%d"
 formatStr: .asciz " %c"
-num1: .word 0
-num2: .word 0
-oper: .word 0
+num1: .dword 0
+num2: .dword 0
+oper: .dword 0
 string0: .asciz "Enter Number 1: "
 string1: .asciz "Enter Number 2: "
 string2: .asciz "Enter Operation: "
@@ -115,4 +120,5 @@ string3: .asciz "Result is: %d\n"
 string4: .asciz "Again? "
 string5: .asciz "Invalid Operation Entered.\n"
 debug: .asciz "here\n"
-printChar: .asciz "Num: %d, %d\n"
+printChar: .asciz "Num: %x, %x\n"
+opera: .asciz "Num: \'%d\', \'%d\', %x\n"
