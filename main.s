@@ -38,10 +38,10 @@ loop:
 	ldr x0, [x0, #0]
 
 	ldr x1, =num2
-	ldr x1, [x1, #0]
-	
+	ldr x1, [x1, #0]	
+
 	ldr x20, =oper
-	ldr w20, [x20, #0]
+	ldrb w20, [x20, #0]
 
 	cmp w20, #42
 	beq opmul
@@ -112,8 +112,8 @@ prompt:
 yes: .byte 'y'
 formatInt: .asciz "%d"
 formatStr: .asciz " %c"
-num1: .word 0
-num2: .word 0
+num1: .octa 0
+num2: .octa 0
 oper: .word 0
 repeat: .word 0
 string0: .asciz "Enter Number 1: "
